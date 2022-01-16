@@ -15,17 +15,9 @@ export default function Home(): JSX.Element {
     }
 
     const { url, fields } = await getPresignedUrl(file)
-    const reader = new FileReader()
-
-    reader.onload = async function (e) {
-      if (typeof e.target?.result === 'string') {
-        const formData = generateFormData(fields, e.target.result)
-        const response = awsPostObject(url, formData)
-        console.log(response)
-      }
-    }
-
-    reader.readAsBinaryString(file)
+    const formData = generateFormData(fields, file)
+    const response = awsPostObject(url, formData)
+    console.log(response)
   }
 
   return (
